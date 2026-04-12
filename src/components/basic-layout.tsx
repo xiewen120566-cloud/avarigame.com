@@ -19,6 +19,12 @@ export default async function BaseLayout({ children, locale }: Props) {
     <html lang={locale}>
       <head>
         <Script
+          id="maxvalue-ads"
+          src="https://ads.maxvaluead.com/scripts/maxvalue_ads_2262481956.js"
+          strategy="afterInteractive"
+          data-cfasync="false"
+        />
+        <Script
           id="google-gpt-bootstrap"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
