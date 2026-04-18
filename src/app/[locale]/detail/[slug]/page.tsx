@@ -76,8 +76,12 @@ export default async function Page({
       <Header hostname={hostname} categories={categories} />
       <Container maxWidth="container.xl" px={{ base: 3, md: 4, lg: 6 }} pt={{ base: 4, md: 6 }}>
         <ElTemplate
-          id="div-gpt-ad-1775823936497-0"
-          style={{ minWidth: 300, minHeight: 50 }}
+          id="goplaygame-Detail-MultiAd"
+          className="adsbygoogle"
+          data-ad-client="ca-pub-3134621309166831"
+          data-ad-slot="8957747591"
+          data-ad-format="autorelaxed"
+          style={{ display: "block" }}
         />
       </Container>
       <Container maxWidth="container.xl" px={{ base: 3, md: 4, lg: 6 }} py={{ base: 4, md: 6 }}>
@@ -165,6 +169,15 @@ export default async function Page({
           </SimpleGrid>
         </Box>
         <Info locale={locale} />
+        <ElTemplate
+          id="goplaygame-Detail-Banner"
+          className="adsbygoogle"
+          data-ad-client="ca-pub-3134621309166831"
+          data-ad-slot="6284681907"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+          style={{ display: "block" }}
+        />
       </Container>
       <Footer />
     </>
