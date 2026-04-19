@@ -63,7 +63,7 @@ var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n
 ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
 
 
-  ttq.load('D79MEGBC77U58B5BC4M0');
+  ttq.load('D6R7D8JC77U4MV0OAJA0');
   ttq.page();
 }(window, document, 'ttq');
           `,
