@@ -1,7 +1,7 @@
 "use client";
 import useAdDisplay from "@/hooks/useAdDisplay";
 import Script from "next/script";
-import { forwardRef } from "react";
+import {forwardRef } from "react";
 
 interface AdTemplateProps {
   id: string;
@@ -17,22 +17,19 @@ interface AdTemplateProps {
 
 const ElTemplate = forwardRef<HTMLModElement, AdTemplateProps>(function AdTemplate(props, ref) {
   useAdDisplay(`#${props.id}`);
-  const { id, ...rest } = props;
   return (
-    <div className="ad-placeholder" style={{ textAlign: "center", paddingBlock: 12, minHeight: 90 }}>
-      <ins
-        id={id}
+    <div className="ad-placeholder" style={{ height: "auto !important", textAlign: "center", paddingBlock: 12 }}>
+      <p>AD</p>
+      <ins 
         ref={ref}
-        {...rest}
-        {...(process.env.NODE_ENV === "development" ? { "data-adtest": "on" } : {})}
+        {...props}
+        {...process.env.NODE_ENV === 'development' ? { "data-adtest": "on" } : {}}
       />
-      <Script
-        id={`adsbygoogle-push-${id}`}
-        strategy="afterInteractive"
+      <Script 
+        id={props["data-ad-slot"]}
         dangerouslySetInnerHTML={{
-          __html: `(function(){ try{ (window.adsbygoogle=window.adsbygoogle||[]).push({}); }catch(e){} })();`,
-        }}
-      />
+        __html: `(window.adsbygoogle = window.adsbygoogle || []).push({});`
+      }} />
     </div>
   );
 });

@@ -1,6 +1,6 @@
 "use client";
 import { PropsWithChildren } from "react";
-import { Box, Button, Flex, Heading, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Image } from "@chakra-ui/react";
 import LocaleSwitcher from "./locale-switcher";
 import SideNav from "./side-nav";
 import { getTargetHref } from "@/utils";
@@ -12,23 +12,32 @@ export const DesktopNavlink = ({
   href,
   children,
 }: PropsWithChildren<{ href: string }>) => {
-  const hoverBg = useColorModeValue("blackAlpha.50", "whiteAlpha.100");
-  const activeBg = useColorModeValue("blackAlpha.100", "whiteAlpha.200");
   return (
     <Button
       as="a"
       size="sm"
+      color="gray.300"
       variant="ghost"
       href={href}
-      rounded="full"
-      color="text.primary"
-      _hover={{ bg: hoverBg }}
-      _active={{ bg: activeBg }}
+      fontWeight="500"
+      borderRadius="md"
+      px={4}
+      py={1}
+      height="auto"
+      minH="32px"
+      bg="transparent"
+      _hover={{
+        bg: "rgba(255, 165, 0, 0.1)",
+        color: "orange.400",
+        transform: "none"
+      }}
+      transition="all 0.2s ease"
     >
       {children}
     </Button>
   );
 };
+
 export default function Header({
   hostname,
   categories,
@@ -38,58 +47,103 @@ export default function Header({
 }) {
   const locale = useLocale() as Locale;
   const searchParams = useSearchParams();
-  const headerBg = useColorModeValue(
-    "rgba(240, 253, 244, 0.92)",
-    "rgba(8,9,13,0.92)"
-  );
+
   return (
-    <Flex
-      alignItems="center"
-      gap={{ base: 3, md: 6, lg: 12 }}
-      height={{ base: 14, md: 16 }}
+    <Box
       position="sticky"
-      px={{ base: 3, md: 4, lg: 6 }}
-      py={3}
       top={0}
       w="full"
       zIndex="sticky"
-      bg={headerBg}
-      backdropFilter="saturate(180%) blur(10px)"
+      bg="gray.800"
       borderBottom="1px solid"
-      borderColor="border.subtle"
+      borderColor="gray.600"
     >
-      <Box
-        as="a"
-        href={getTargetHref(locale, "/", searchParams.get("channel"))}
-      >
-        <Heading
-          as="h1"
-          size={{ base: "sm", md: "md" }}
-          color="text.primary"
-          fontWeight="extrabold"
-          letterSpacing="tight"
+      <Box>
+        <Flex
+          px={{ base: 3, md: 5, lg: 6 }}
+          py={3}
+          alignItems="center"
+          justifyContent="space-between"
+          maxW="1200px"
+          mx="auto"
         >
-          {hostname.toUpperCase()}
-        </Heading>
+          <Box
+            as="a"
+            href={getTargetHref(locale, "/", searchParams.get("channel"))}
+            display="flex"
+            alignItems="center"
+            _hover={{
+              opacity: 0.8
+            }}
+            transition="opacity 0.2s ease"
+          >
+            <Image
+              src="/static/Group 116.png"
+              alt={hostname}
+              h="2.8rem"
+              w="auto"
+            />
+          </Box>
+          <Flex
+            hideBelow="lg"
+            gap={2}
+            alignItems="center"
+          >
+            {categories.map((category) => (
+              <DesktopNavlink
+                href={getTargetHref(locale, `/category/${category.alias}`)}
+                key={category.id}
+              >
+                {category.name}
+              </DesktopNavlink>
+            ))}
+          </Flex>
+          <Flex gap={3} alignItems="center">
+            <Box hideBelow="lg">
+              <LocaleSwitcher />
+            </Box>
+            <Box hideFrom="lg">
+              <SideNav categories={categories} />
+            </Box>
+          </Flex>
+        </Flex>
+        <Flex
+          hideFrom="lg"
+          justifyContent="center"
+          py={2}
+          px={3}
+          gap={2}
+          bg="gray.750"
+          borderTop="1px solid"
+          borderColor="gray.600"
+        >
+          <Flex gap={1} flexWrap="wrap" justifyContent="center">
+            {categories.slice(0, 4).map((category) => (
+              <Button
+                as="a"
+                href={getTargetHref(locale, `/category/${category.alias}`)}
+                key={category.id}
+                size="xs"
+                color="gray.300"
+                variant="ghost"
+                bg="transparent"
+                borderRadius="sm"
+                px={3}
+                py={1}
+                height="28px"
+                minH="28px"
+                _hover={{
+                  bg: "rgba(255, 165, 0, 0.1)",
+                  color: "orange.400"
+                }}
+                fontSize="13px"
+              >
+                {category.name}
+              </Button>
+            ))}
+          </Flex>
+        </Flex>
       </Box>
-      <Flex flex={1} hideBelow="lg" justifyContent="space-between" gap={12}>
-        <Flex justifyContent="flex-end">
-          {categories.map((category) => (
-            <DesktopNavlink
-              href={getTargetHref(locale, `/category/${category.alias}`)}
-              key={category.id}
-            >
-              {category.name}
-            </DesktopNavlink>
-          ))}
-        </Flex>
-        <Flex gap={1}>
-          <LocaleSwitcher />
-        </Flex>
-      </Flex>
-      <Flex hideFrom="lg" justifyContent="flex-end" flex={1}>
-        <SideNav categories={categories} />
-      </Flex>
-    </Flex>
+    </Box>
   );
 }

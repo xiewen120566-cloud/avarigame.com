@@ -23,31 +23,11 @@ export default extendTheme({
           900: "#001d66",
       },
       bg: {
-        default: "green.50",
-        _dark: "#08090d",
-      },
-      "surface.1": {
-        default: "#e8f5e9",
-        _dark: "#12141c",
-      },
-      "surface.2": {
-        default: "#d9f0dd",
-        _dark: "#171a23",
-      },
-      "border.subtle": {
-        default: "rgba(0,0,0,0.12)",
-        _dark: "rgba(255,255,255,0.12)",
-      },
-      "text.primary": {
-        default: "#0f172a",
-        _dark: "#f5f7ff",
-      },
-      "text.muted": {
-        default: "#475569",
-        _dark: "#a2abc0",
+        default: "#fcfdfe",
+        _dark: "#14151e"
       },
       "drawer.dialog.bg": {
-        default: "white",
+        default: "gray.50",
         _dark: "gray.900"
       }
     },
@@ -55,17 +35,12 @@ export default extendTheme({
   styles: {
     global: defineStyle({
       "html, body": {
-        minHeight: "100%",
-        bg: "bg.default",
-        color: "text.primary",
+        minHeight: "100%"
       },
       body: {
         minW: "320px",
-        bg: "bg.default",
-        color: "text.primary",
-      },
-      "#__next": {
-        bg: "bg.default",
+        bg: "#F5F5F5",
+        color: "#666666"
       },
       ".star": {
         "&.full" : {
@@ -81,32 +56,11 @@ export default extendTheme({
           backgroundSize: "auto 100%, auto 100%"
         }
       },
-      "ins.adsbygoogle[data-ad-status='unfilled']:not(#goplaygame-Home-Banner):not(#gameworkspace-Home-Banner)": {
-        display: "none"
+      "ins.adsbygoogle[data-ad-status='unfilled']": {
+        display: 'none'
       },
       "#description a" : {
         color: "cyan.500"
-      },
-      "a": {
-        color: "inherit"
-      },
-      ".gpt-sticky-bottom": {
-        position: "fixed",
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 2147483647,
-        display: "flex",
-        justifyContent: "center",
-        pointerEvents: "none",
-        "@media (min-width: 768px)": {
-          display: "none"
-        }
-      },
-      ".gpt-sticky-bottom__inner": {
-        pointerEvents: "auto",
-        minWidth: "320px",
-        minHeight: "50px"
       }
     }),
   },
