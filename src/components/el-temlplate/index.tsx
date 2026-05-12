@@ -37,7 +37,7 @@ interface AdTemplateProps {
   style?: React.CSSProperties;
 }
 
-const ElTemplate = forwardRef<HTMLModElement, AdTemplateProps>(function AdTemplate(props, ref) {
+const ElTemplate = forwardRef<HTMLDivElement, AdTemplateProps>(function AdTemplate(props, ref) {
   const slotRef = useRef<GptSlot | null>(null);
   const sizesKey = useMemo(() => JSON.stringify(props.sizes), [props.sizes]);
 
