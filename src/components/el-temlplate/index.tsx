@@ -1,35 +1,102 @@
 "use client";
-import useAdDisplay from "@/hooks/useAdDisplay";
-import Script from "next/script";
-import {forwardRef } from "react";
+import { forwardRef, useEffect, useMemo, useRef } from "react";
+
+type GptSize = [number, number];
+
+type GptCommandFn = () => void;
+
+type GptSlot = {
+  addService: (service: unknown) => GptSlot;
+};
+
+type GoogletagApi = {
+  cmd: GptCommandFn[];
+  defineSlot?: (adUnitPath: string, size: GptSize[], divId: string) => GptSlot | null;
+  pubads?: () => {
+    enableSingleRequest: () => void;
+  };
+  enableServices?: () => void;
+  display?: (divId: string) => void;
+  destroySlots?: (slots?: GptSlot[]) => boolean;
+};
+
+declare global {
+  interface Window {
+    googletag?: GoogletagApi;
+    __gptServicesEnabled?: boolean;
+  }
+}
 
 interface AdTemplateProps {
   id: string;
   className?: string;
-  "data-ad-client": string;
-  "data-ad-slot": string;
-  "data-ad-format": string;
-  "data-full-width-responsive"?: boolean | string;
-  "data-ad-channel"?: string;
+  adUnitPath: string;
+  sizes: GptSize[];
+  minWidth?: number;
+  minHeight?: number;
   style?: React.CSSProperties;
-  channelId?: string;
 }
 
 const ElTemplate = forwardRef<HTMLModElement, AdTemplateProps>(function AdTemplate(props, ref) {
-  useAdDisplay(`#${props.id}`);
+  const slotRef = useRef<GptSlot | null>(null);
+  const sizesKey = useMemo(() => JSON.stringify(props.sizes), [props.sizes]);
+
+  useEffect(() => {
+    window.googletag = window.googletag || { cmd: [] };
+
+    const { googletag } = window;
+    let cancelled = false;
+
+    googletag.cmd.push(() => {
+      if (cancelled) return;
+
+      const pubadsService = googletag.pubads?.();
+      if (!pubadsService || !googletag.defineSlot) return;
+
+      const slot = googletag.defineSlot(props.adUnitPath, props.sizes, props.id);
+      if (!slot) return;
+
+      slot.addService(pubadsService);
+      slotRef.current = slot;
+
+      if (!window.__gptServicesEnabled) {
+        pubadsService.enableSingleRequest();
+        googletag.enableServices?.();
+        window.__gptServicesEnabled = true;
+      }
+
+      googletag.display?.(props.id);
+    });
+
+    return () => {
+      cancelled = true;
+      const currentSlot = slotRef.current;
+      if (!currentSlot) return;
+
+      googletag.cmd.push(() => {
+        googletag.destroySlots?.([currentSlot]);
+      });
+      slotRef.current = null;
+    };
+  }, [props.adUnitPath, props.id, props.sizes, sizesKey]);
+
   return (
-    <div className="ad-placeholder" style={{ height: "auto !important", textAlign: "center", paddingBlock: 12 }}>
+    <div
+      className="ad-placeholder"
+      style={{ textAlign: "center", paddingBlock: 12 }}
+    >
       <p>AD</p>
-      <ins 
+      <div
         ref={ref}
-        {...props}
-        {...process.env.NODE_ENV === 'development' ? { "data-adtest": "on" } : {}}
+        id={props.id}
+        className={["gpt-slot", props.className].filter(Boolean).join(" ")}
+        style={{
+          minWidth: props.minWidth ?? 300,
+          minHeight: props.minHeight ?? 50,
+          marginInline: "auto",
+          ...props.style,
+        }}
       />
-      <Script 
-        id={props["data-ad-slot"]}
-        dangerouslySetInnerHTML={{
-        __html: `(window.adsbygoogle = window.adsbygoogle || []).push({});`
-      }} />
     </div>
   );
 });
