@@ -64,7 +64,7 @@ export default async function Page({
       <Header categories={categories} hostname={hostname} />
       <Container maxWidth="container.xl" px={{ base: 3, md: 4, lg: 6 }} py={{ base: 4, md: 6 }}>
         <ElTemplate
-          id="goplaygame-Category-MultiAd"
+          divId="div-gpt-ad-category-multi-0"
           adUnitPath="/23329264490/96"
           sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
           minWidth={300}
@@ -114,7 +114,7 @@ export default async function Page({
           <Info locale={locale} />
         </VStack>
         <ElTemplate
-          id="goplaygame-Category-Banner"
+          divId="div-gpt-ad-category-banner-0"
           adUnitPath="/23329264490/96"
           sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
           minWidth={300}

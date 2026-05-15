@@ -76,7 +76,7 @@ export default async function Page({
       <Header hostname={hostname} categories={categories} />
       <Container maxWidth="container.xl" px={{ base: 3, md: 4, lg: 6 }} pt={{ base: 4, md: 6 }}>
         <ElTemplate
-          id="goplaygame-Detail-MultiAd"
+          divId="div-gpt-ad-detail-multi-0"
           adUnitPath="/23329264490/96"
           sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
           minWidth={300}
@@ -169,7 +169,7 @@ export default async function Page({
         </Box>
         <Info locale={locale} />
         <ElTemplate
-          id="goplaygame-Detail-Banner"
+          divId="div-gpt-ad-detail-banner-0"
           adUnitPath="/23329264490/96"
           sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
           minWidth={300}

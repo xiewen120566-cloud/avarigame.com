@@ -28,7 +28,7 @@ declare global {
 }
 
 interface AdTemplateProps {
-  id: string;
+  divId: string;
   className?: string;
   adUnitPath: string;
   sizes: GptSize[];
@@ -53,7 +53,7 @@ const ElTemplate = forwardRef<HTMLDivElement, AdTemplateProps>(function AdTempla
       const pubadsService = googletag.pubads?.();
       if (!pubadsService || !googletag.defineSlot) return;
 
-      const slot = googletag.defineSlot(props.adUnitPath, props.sizes, props.id);
+      const slot = googletag.defineSlot(props.adUnitPath, props.sizes, props.divId);
       if (!slot) return;
 
       slot.addService(pubadsService);
@@ -65,7 +65,7 @@ const ElTemplate = forwardRef<HTMLDivElement, AdTemplateProps>(function AdTempla
         window.__gptServicesEnabled = true;
       }
 
-      googletag.display?.(props.id);
+      googletag.display?.(props.divId);
     });
 
     return () => {
@@ -78,7 +78,7 @@ const ElTemplate = forwardRef<HTMLDivElement, AdTemplateProps>(function AdTempla
       });
       slotRef.current = null;
     };
-  }, [props.adUnitPath, props.id, props.sizes, sizesKey]);
+  }, [props.adUnitPath, props.divId, props.sizes, sizesKey]);
 
   return (
     <div
@@ -88,7 +88,7 @@ const ElTemplate = forwardRef<HTMLDivElement, AdTemplateProps>(function AdTempla
       <p>AD</p>
       <div
         ref={ref}
-        id={props.id}
+        id={props.divId}
         className={["gpt-slot", props.className].filter(Boolean).join(" ")}
         style={{
           minWidth: props.minWidth ?? 300,

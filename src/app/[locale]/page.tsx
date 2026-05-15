@@ -56,7 +56,7 @@ export default async function Page({
         py={{ base: 4, md: 6 }}
       >
         <ElTemplate
-          id="goplaygame-Home-MultiAd"
+          divId="div-gpt-ad-home-multi-0"
           adUnitPath="/23329264490/96"
           sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
           minWidth={300}
@@ -209,7 +209,7 @@ export default async function Page({
           <Info locale={locale} />
         </VStack>
         <ElTemplate
-          id="goplaygame-Home-Banner"
+          divId="div-gpt-ad-home-banner-0"
           adUnitPath="/23329264490/96"
           sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
           minWidth={300}
