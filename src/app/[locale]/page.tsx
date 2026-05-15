@@ -56,9 +56,9 @@ export default async function Page({
         py={{ base: 4, md: 6 }}
       >
         <ElTemplate
-          divId="div-gpt-ad-home-multi-0"
+          divId="div-gpt-ad-1778849924616-0"
           adUnitPath="/23329264490/96"
-          sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
+          sizes={[[320, 100], [300, 250], [300, 75], [320, 50]]}
           minWidth={300}
           minHeight={50}
         />
@@ -208,13 +208,13 @@ export default async function Page({
           })}
           <Info locale={locale} />
         </VStack>
-        <ElTemplate
-          divId="div-gpt-ad-home-banner-0"
+        {/* <ElTemplate
+          divId="div-gpt-ad-1778849924616-1"
           adUnitPath="/23329264490/96"
-          sizes={[[320, 100], [320, 50], [300, 75], [300, 250]]}
+          sizes={[[320, 100], [300, 250], [300, 75], [320, 50]]}
           minWidth={300}
           minHeight={50}
-        />
+        /> */}
       </Container>
       <Footer />
     </Box>
